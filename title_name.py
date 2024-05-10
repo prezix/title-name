@@ -30,7 +30,9 @@ def capture_console_output(command):
 def on_button_click(text_area):
     command = "Get-Process | Where-Object {$_.mainWindowTitle} | Format-Table Id, Name, mainWindowtitle -AutoSize"
     result = capture_console_output(command)
+    text_area.config(state="normal")  # Разрешаем редактирование текста
     text_area.insert(END, f"Console Output:\n{result}\n\n")
+    text_area.config(state="disabled")  # Запрещаем редактирование текста
 
 # Главная функция для запуска приложения
 def main():
@@ -56,6 +58,7 @@ def main():
     scrollbar.pack(side="right", fill="y")
 
     text_area.config(yscrollcommand=scrollbar.set)
+    text_area.config(state="disabled")  # Запрещаем редактирование текста
 
     window.mainloop()
 
